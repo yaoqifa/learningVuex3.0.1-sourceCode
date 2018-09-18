@@ -1,5 +1,6 @@
-# Vuex [![Build Status](https://circleci.com/gh/vuejs/vuex/tree/dev.png?style=shield)](https://circleci.com/gh/vuejs/vuex)
 
+# Vuex [![Build Status](https://circleci.com/gh/vuejs/vuex/tree/dev.png?style=shield)](https://circleci.com/gh/vuejs/vuex)
+copy from vuex. learning vuex sourceCoce and 注释它。记录我的学习过程。
 > Centralized State Management for Vue.js.
 
 <p align="center">
