@@ -39,6 +39,7 @@ export default class ModuleCollection {
     }
 
     // register nested modules
+    // qifa 可能存在modules嵌套，如果有就递归执行，并且添加路径
     if (rawModule.modules) {
       forEachValue(rawModule.modules, (rawChildModule, key) => {
         this.register(path.concat(key), rawChildModule, runtime)
