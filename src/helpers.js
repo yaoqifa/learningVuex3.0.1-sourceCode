@@ -19,7 +19,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
         getters = module.context.getters
       }
       return typeof val === 'function'
-        ? val.call(this, state, getters)
+        ? val.call(this, state,  )
         : state[val]
     }
     // mark vuex getter for devtools
@@ -139,6 +139,7 @@ function normalizeMap (map) {
  * @param {Function} fn
  * @return {Function}
  */
+// qifa 将2个参数变成1个
 function normalizeNamespace (fn) {
   return (namespace, map) => {
     if (typeof namespace !== 'string') {
