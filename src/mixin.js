@@ -22,6 +22,7 @@
   function vuexInit () {
     const options = this.$options
     // store injection
+    // qifa store 是在new Vue时传入的 new Vuex.Store的实例
     if (options.store) {
       this.$store = typeof options.store === 'function'
         ? options.store()

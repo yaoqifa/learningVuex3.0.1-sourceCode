@@ -10,7 +10,6 @@ export class Store {
     // Auto install if it is not done yet and `window` has `Vue`.
     // To allow users to avoid auto-installation in some cases,
     // this code should be placed here. See #731
-    // qifa 不是通过npm安装的
     if (!Vue && typeof window !== 'undefined' && window.Vue) {
       install(window.Vue)
     }
@@ -467,7 +466,7 @@ function unifyObjectStyle (type, payload, options) {
 
   return { type, payload, options }
 }
-// qifa vue的插件都会先执行install
+// qifa vue的插件都会先执行install， 调用Vue.use(Vuex)时就会调用install
 export function install (_Vue) {
   if (Vue && _Vue === Vue) {
     if (process.env.NODE_ENV !== 'production') {
