@@ -244,6 +244,7 @@ function resetStoreVM (store, state, hot) {
   // some funky global mixins
   const silent = Vue.config.silent
   Vue.config.silent = true
+  // qifa 在调用 store.state 时 返回的就是 这个$$state
   store._vm = new Vue({
     data: {
       $$state: state
