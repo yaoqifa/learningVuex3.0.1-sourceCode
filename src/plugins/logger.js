@@ -1,5 +1,5 @@
 // Credits: borrowed code from fcomb/redux-logger
-
+// qifa 原理就是调用store.subscribe方法，添加fn到_subscribers上，mutation提交时会 遍历_subscribers调用
 import { deepCopy } from '../util'
 
 export default function createLogger ({
