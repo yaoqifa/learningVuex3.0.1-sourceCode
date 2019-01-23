@@ -83,6 +83,7 @@ export class Store {
     }
   }
 
+
   commit (_type, _payload, _options) {
     // check object-style commit
     const {
@@ -214,7 +215,6 @@ function genericSubscribe (fn, subs) {
     }
   }
 }
-
 function resetStore (store, hot) {
   store._actions = Object.create(null)
   store._mutations = Object.create(null)
@@ -227,6 +227,7 @@ function resetStore (store, hot) {
   resetStoreVM(store, state, hot)
 }
 
+// qifa 作用是建立getters和state的联系，利用了Vue的compu计算属性
 function resetStoreVM (store, state, hot) {
   const oldVm = store._vm
 

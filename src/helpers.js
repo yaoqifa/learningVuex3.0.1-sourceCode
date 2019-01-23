@@ -4,6 +4,13 @@
  * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
  * @param {Object}
  */
+
+ // qifa
+ // computed: {
+//    mapState('some/nested/module', {
+//      a: state => state.a
+//    })
+//  }
 export const mapState = normalizeNamespace((namespace, states) => {
   const res = {}
   normalizeMap(states).forEach(({ key, val }) => {
@@ -61,6 +68,13 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
  * @param {Object|Array} getters
  * @return {Object}
  */
+// qifa
+// computed: {
+//   mapGetters([
+//     'getA',
+//     'getB'
+//   ])
+// }
 export const mapGetters = normalizeNamespace((namespace, getters) => {
   const res = {}
   normalizeMap(getters).forEach(({ key, val }) => {
