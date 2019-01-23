@@ -1,6 +1,11 @@
 import Module from './module'
 import { assert, forEachValue } from '../util'
 
+// qifa 最外面实例化Store对象，会传入 options
+// import Vuex from 'vuex'
+// Vue.use(Vuex)
+// export default new Vuex.store({ actions, getters, state, mutations, modules })
+
 export default class ModuleCollection {
   constructor (rawRootModule) {
     // register root module (Vuex.Store options)
@@ -25,15 +30,26 @@ export default class ModuleCollection {
     update([], this.root, rawRootModule)
   }
 
+  /**
+   * qifa 对于root module的下一层modules，被添加到_children中，每个子模块通过路径找到父模块，
+   * 然后通过父模块的addChild 方法建立父子关系，递归执行，最终构成模块树
+   *
+   * @param {*} path 表示构建模块树的过程中维护的路径
+   * @param {*} rawModule 定义模块的原始配置
+   * @param {boolean} [runtime=true] 是否是一个运行时创建的模块
+   * @memberof ModuleCollection
+   */
   register (path, rawModule, runtime = true) {
     if (process.env.NODE_ENV !== 'production') {
       assertRawModule(path, rawModule)
     }
 
     const newModule = new Module(rawModule, runtime)
+    // qifa 表示根模块
     if (path.length === 0) {
       this.root = newModule
     } else {
+      // path.slice(0, -1) === path.slice(1)
       const parent = this.get(path.slice(0, -1))
       parent.addChild(path[path.length - 1], newModule)
     }

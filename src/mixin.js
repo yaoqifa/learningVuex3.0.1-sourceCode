@@ -23,6 +23,7 @@
     const options = this.$options
     // store injection
     // qifa store 是在new Vue时传入的 new Vuex.Store的实例
+    // qifa 所以可以在组件中访问实例
     if (options.store) {
       this.$store = typeof options.store === 'function'
         ? options.store()

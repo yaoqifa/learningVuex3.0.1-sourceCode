@@ -1,6 +1,7 @@
 import { forEachValue } from '../util'
 
 // Base data struct for store's module, package with some attribute and method
+// qifa 描述单个模块的类
 export default class Module {
   constructor (rawModule, runtime) {
     this.runtime = runtime

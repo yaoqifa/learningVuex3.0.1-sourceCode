@@ -32,6 +32,8 @@ export class Store {
     this._mutations = Object.create(null)
     this._wrappedGetters = Object.create(null)
     // qifa modules a b等，防止vuex状态臃肿，所以分隔成子模块，每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割：
+    // qifa store本身可以理解为 root module， 下面的modules就是子模块，Vuex需要完成这棵树的构建，下面是构建入口
+    // qifa 第一件事初始化模块
     this._modules = new ModuleCollection(options)
     this._modulesNamespaceMap = Object.create(null)
     this._subscribers = []
@@ -49,16 +51,18 @@ export class Store {
 
     // strict mode
     this.strict = strict
-
+    // qifa root 是一个root module，包含 state属性
     const state = this._modules.root.state
 
     // init root module.
     // this also recursively registers all sub-modules
     // and collects all module getters inside this._wrappedGetters
+    // qifa 第二件事 安装模块
     installModule(this, state, [], this._modules.root)
 
     // initialize the store vm, which is responsible for the reactivity
     // (also registers _wrappedGetters as computed properties)
+    // qifa 第三件事 初始化store._vm
     resetStoreVM(this, state)
 
     // apply plugins
@@ -269,12 +273,14 @@ function resetStoreVM (store, state, hot) {
     Vue.nextTick(() => oldVm.$destroy())
   }
 }
-
+// qifa 完成模块下的state、getters、actions、mutations的初始化工作，通过递归遍历的方式，完成所有子模块的安装工作
 function installModule (store, rootState, path, module, hot) {
   const isRoot = !path.length
   const namespace = store._modules.getNamespace(path)
 
   // register in namespace map
+  // qifa namespaced: true 是带命名空间的模块， 否则默认添加到父级的命名空间上
+  // 所有getter、action、mutation都会根据模块注册的路径调整命名
   if (module.namespaced) {
     store._modulesNamespaceMap[namespace] = module
   }
@@ -305,7 +311,7 @@ function installModule (store, rootState, path, module, hot) {
     const namespacedType = namespace + key
     registerGetter(store, namespacedType, getter, local)
   })
-
+  // qifa 最后递归所有子模块的安装
   module.forEachChild((child, key) => {
     installModule(store, rootState, path.concat(key), child, hot)
   })
