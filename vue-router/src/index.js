@@ -17,7 +17,11 @@ import { HTML5History } from './history/html5'
 import { AbstractHistory } from './history/abstract'
 
 import type { Matcher } from './create-matcher'
-
+// new VueRouter({
+//   routes: [{
+//     path: '/foo', component: Foo
+//   }]
+// })
 export default class VueRouter {
   static install: () => void;
   static version: string;
@@ -36,12 +40,15 @@ export default class VueRouter {
   afterHooks: Array<?AfterNavigationHook>;
 
   constructor (options: RouterOptions = {}) {
+    // Vue实例
     this.app = null
+    // 所有子组件的vue实例
     this.apps = []
     this.options = options
     this.beforeHooks = []
     this.resolveHooks = []
     this.afterHooks = []
+    // 路由匹配器
     this.matcher = createMatcher(options.routes || [], this)
 
     let mode = options.mode || 'hash'
@@ -82,7 +89,7 @@ export default class VueRouter {
   get currentRoute (): ?Route {
     return this.history && this.history.current
   }
-
+  // 每个组件执行beforeCreated钩子函数的时候，都会执行router.init方法
   init (app: any /* Vue component instance */) {
     process.env.NODE_ENV !== 'production' && assert(
       install.installed,

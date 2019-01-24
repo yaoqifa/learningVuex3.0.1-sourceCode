@@ -14,15 +14,17 @@ export type Matcher = {
 };
 
 export function createMatcher (
+  // 用户传入的数组[{path:'/', component: A}]
   routes: Array<RouteConfig>,
   router: VueRouter
 ): Matcher {
   const { pathList, pathMap, nameMap } = createRouteMap(routes)
 
+  // qifa 动态添加路由配置
   function addRoutes (routes) {
     createRouteMap(routes, pathList, pathMap, nameMap)
   }
-
+  // 根据传入的raw 和当前的路径 计算出一个新的路径并返回
   function match (
     raw: RawLocation,
     currentRoute?: Route,
