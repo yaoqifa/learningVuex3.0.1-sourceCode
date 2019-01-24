@@ -2,7 +2,7 @@ import View from './components/view'
 import Link from './components/link'
 
 export let _Vue
-
+// qifa 用户执行Vue.use(VueRouter)就执行install，
 export function install (Vue) {
   if (install.installed && _Vue === Vue) return
   install.installed = true
@@ -17,7 +17,11 @@ export function install (Vue) {
       i(vm, callVal)
     }
   }
-
+  // Vue.mixin = function (mixin: Object) {
+  //   this.options = mergeOptions(this.options, mixin)
+  //   return this
+  // }
+  // qifa 每个组件都会注入
   Vue.mixin({
     beforeCreate () {
       if (isDef(this.$options.router)) {
@@ -42,7 +46,7 @@ export function install (Vue) {
   Object.defineProperty(Vue.prototype, '$route', {
     get () { return this._routerRoot._route }
   })
-
+  // qifa 全局组件
   Vue.component('RouterView', View)
   Vue.component('RouterLink', Link)
 

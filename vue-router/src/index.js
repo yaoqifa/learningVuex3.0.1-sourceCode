@@ -1,4 +1,7 @@
 /* @flow */
+// Vue.use(plugin) 的原理
+// 维护了一个_installedPlugins数组，然后调用install方法，
+// 所以Vue的插件要实现一个静态的install方法，方法第一个参数拿到Vue对象，这样作为插件的编写，不用额外import Vue了。
 
 import { install } from './install'
 import { START } from './util/route'
